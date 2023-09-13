@@ -3,26 +3,29 @@
 *@
 @{
 }
-<h1>Student Details</h1>
-<table class="table">
-    <tr>
-        <td>Name:</td>
-        <td>@ViewBag.Student.StudentName</td>
+@model IEnumerable<Student>
+
+<h1 class="display-6">Student List</h1>
+<table class="table table-bordered border-dark">
+    <tr class="table-dark">
+        <td><b>Name</b></td>
+        <td><b>Email</b></td>
+        <td><b>Course</b></td>
+        <td><b>GPA</b></td>
+        <td><b>Date Enrolled</b></td>
+        <td><b>Details</b></td>
     </tr>
-    <tr>
-        <td>Student Id:</td>
-        <td>@ViewBag.Student.StudentId</td>
-    </tr>
-    <tr>
-        <td>Date Enrolled:</td>
-        <td>@ViewBag.Student.DateEnrolled</td>
-    </tr>
-    <tr>
-        <td>Course:</td>
-        <td>@ViewBag.Student.StudentCourse</td>
-    </tr>
-    <tr>
-        <td>Email:</td>
-        <td>@ViewBag.Student.Email</td>
-    </tr>
+
+    @foreach (var Student in Model)
+    {
+        <tr>
+            <td>@Student.StudentFirstName @Student.StudentLastName</td>
+            <td>@Student.Email</td>
+            <td>@Student.StudentCourse</td>
+            <td>@Student.GPA</td>
+            <td>@Student.DateEnrolled</td>
+            <td><a class="btn btn-outline-success btn-sm d-flex justify-content-center" asp-action="ShowDetails" asp-route-Id="@Student.StudentId">Show Details</a></td>
+        </tr>
+    }
+
 </table>

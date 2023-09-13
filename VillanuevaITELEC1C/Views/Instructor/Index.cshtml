@@ -3,23 +3,37 @@
 *@
 @{
 }
-@model IEnumerable<VillanuevaITELEC1C.Models.Instructor>
-<h1>Instructor List</h1>
-<table class="table">
+@model IEnumerable<Instructor>
+
+
+<h1 class="display-6">Instructor List</h1>
+<table class="table table-bordered border-dark">
     <tr class="table-dark">
-        <td>Name:</td>
-        <td>Date Hired:</td>
-        <td>Email:</td>
-        <td>Rank:</td>
+        <td><b>Name</b></td>
+        <td><b>Status</b></td>
+        <td><b>Rank</b></td>
+        <td><b>Hiring Date</b></td>
+        <td><b>Details</b></td>
     </tr>
+
     
         @foreach(var Instructor in Model)
         {
+        string status = "";
+        if (Instructor.IsTenured)
+        {
+            status = "Permanent";
+        }
+        else if (Instructor.IsTenured== false)
+        {
+            status = "Probationary";
+        }
         <tr>
-            <td>@Instructor.InstructorName</td>
-            <td>@Instructor.DateHired</td>
-            <td>@Instructor.InstructorEmail</td>
-            <td>@Instructor.InstructorRank</td>
+            <td>@Instructor.FirstName @Instructor.LastName</td>
+            <td>@status</td>
+            <td>@Instructor.Rank</td>
+            <td>@Instructor.HiringDate</td>
+            <td><a class="btn btn-outline-success btn-sm d-flex justify-content-center" asp-action="ShowDetails" asp-route-Id="@Instructor.Id">Show Details</a></td>
         </tr>
         }
     

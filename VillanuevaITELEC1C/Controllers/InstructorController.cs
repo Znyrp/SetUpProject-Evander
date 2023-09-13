@@ -9,32 +9,59 @@ namespace VillanuevaITELEC1C.Controllers
             {
                 new Instructor()
                 {
-                    InstructorName = "Gabriel Montano",
-                    DateHired = DateTime.Now,
-                    InstructorEmail = "gmontano@ust.edu.ph",
-                    InstructorRank = rank.Instructor
+                    Id = 1,
+                    FirstName = "Gabriel",
+                    LastName = "Montano",
+                    IsTenured = true,
+                    Rank = Rank.AssociateProfessor,
+                    HiringDate = DateTime.Parse("29/01/2020")
                 },
 
                 new Instructor()
                 {
-                    InstructorName = "Leo Lintag",
-                    DateHired = DateTime.Parse("29/01/2005"),
-                    InstructorEmail = "llintag@ust.edu.ph",
-                    InstructorRank = rank.Assitant
+                    Id = 2,
+                    FirstName = "Leo",
+                    LastName = "Lintag",
+                    IsTenured= false,
+                    Rank = Rank.Instructor,
+                    HiringDate = DateTime.Parse("09/08/2005")
                 },
 
                 new Instructor()
                 {
-                    InstructorName = "Eugenia Zhuo",
-                    DateHired = DateTime.Parse("25/08/2002"),
-                    InstructorEmail = "ezhuo@ust.edu.ph",
-                    InstructorRank = rank.Prof
+                    Id = 3,
+                    FirstName = "Eugenia",
+                    LastName = "Zhuo",
+                    IsTenured= true,
+                    Rank = Rank.Professor,
+                    HiringDate = DateTime.Parse("10/10/2009")
+                },
+
+                 new Instructor()
+                {
+                    Id = 4,
+                    FirstName = "Mike",
+                    LastName = "Victorio",
+                    IsTenured= true,
+                    Rank = Rank.AssistantProfessor,
+                    HiringDate = DateTime.Parse("10/12/2010")
                 }
     };
     public IActionResult Index()
         {
             
             return View(Instructorlist);
+        }
+
+        public IActionResult ShowDetails(int id)
+        {
+            //Search for the student whose id matches the given id
+            Instructor? instructor = Instructorlist.FirstOrDefault(ins => ins.Id == id);
+
+            if (instructor != null)//was an instructor found?
+                return View(instructor);
+
+            return NotFound();
         }
     }
 };
