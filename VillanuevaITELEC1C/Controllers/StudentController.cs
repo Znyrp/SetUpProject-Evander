@@ -24,7 +24,7 @@ namespace VillanuevaITELEC1C.Controllers
                     StudentLastName = "Santos",
                     Email = "jandrefner.santos.cics@ust.edu.ph",
                     StudentCourse = Course.BSIT,
-                    GPA = 1.00,
+                    GPA = 1.25,
                     DateEnrolled = DateTime.Parse("03/02/2020"),
                 },
                   new Student()
@@ -34,7 +34,7 @@ namespace VillanuevaITELEC1C.Controllers
                     StudentLastName = "Alicante",
                     Email = "markclarence.alicante.cics@ust.edu.ph",
                     StudentCourse = Course.BSCS,
-                    GPA = 1.00,
+                    GPA = 1.50,
                     DateEnrolled = DateTime.Parse("22/01/2020"),
                 },
                    new Student()
@@ -44,7 +44,7 @@ namespace VillanuevaITELEC1C.Controllers
                     StudentLastName = "Victoria",
                     Email = "zyke.victoria.cics@ust.edu.ph",
                     StudentCourse = Course.BSIS,
-                    GPA = 1.00,
+                    GPA = 1.25,
                     DateEnrolled = DateTime.Parse("10/11/2020"),
                 },
                     new Student()
@@ -54,7 +54,7 @@ namespace VillanuevaITELEC1C.Controllers
                     StudentLastName = "Virgo",
                     Email = "louisivan.virgo.cics@ust.edu.ph",
                     StudentCourse = Course.BSIT,
-                    GPA = 1.00,
+                    GPA = 1.75,
                     DateEnrolled = DateTime.Parse("03/02/2020"),
                 },
         };
