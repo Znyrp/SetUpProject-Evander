@@ -66,13 +66,25 @@ namespace VillanuevaITELEC1C.Controllers
 
         public IActionResult ShowDetails(int id)
         {
-            //Search for the student whose id matches the given id
+            //Search for the instructor whose id matches the given id
             Student? student = StudentList.FirstOrDefault(st => st.StudentId == id);
 
             if (student != null)//was an instructor found?
                 return View(student);
 
             return NotFound();
+        }
+        [HttpGet]
+        public IActionResult AddStudent()
+        {
+
+            return View();
+        }
+        [HttpPost]
+        public IActionResult AddStudent(Student newStudent)
+        {
+            StudentList.Add(newStudent);
+            return View("Index", StudentList);
         }
     }
 };

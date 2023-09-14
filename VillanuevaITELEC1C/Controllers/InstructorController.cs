@@ -63,5 +63,16 @@ namespace VillanuevaITELEC1C.Controllers
 
             return NotFound();
         }
+        public IActionResult AddInstructor()
+        {
+
+            return View();
+        }
+        [HttpPost]
+        public IActionResult AddInstructor(Instructor newInstructor)
+        {
+            Instructorlist.Add(newInstructor);
+            return View("Index", Instructorlist);
+        }
     }
 };
