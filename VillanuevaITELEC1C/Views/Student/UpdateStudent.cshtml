@@ -1,0 +1,48 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model Student;
+<h1 class="display-6">Update Student</h1>
+<form asp-action="UpdateStudent" asp-controller="Student" method="post">
+    <div class="row">
+        <div class="form-group col">
+            <label asp-for="StudentId" readonly>Student Id</label>
+            <input class="form-control" asp-for="StudentId" readonly>
+        </div>
+    
+        <div class="form-group col">
+            <label asp-for="StudentFirstName">First Name</label>
+            <input class="form-control" asp-for="StudentFirstName">
+        </div>
+    
+        <div class="form-group col">
+            <label asp-for="StudentLastName">Last Name</label>
+            <input class="form-control" asp-for="StudentLastName">
+        </div>
+    </div>
+        <div class="form-group">
+            <label asp-for="Email">Email</label>
+            <input class="form-control" asp-for="Email">
+        </div>
+    <div class="row">
+        <div class="form-group col">
+            <label asp-for="DateEnrolled">Date Enrolled</label>
+            <input class="form-control" asp-for="DateEnrolled">
+        </div>
+        <div class="form-group col">
+            <label asp-for="StudentCourse">Student Course</label>
+                <select class="form-control form-select" asp-items="@Html.GetEnumSelectList(typeof(Course))" aria-describedby="CourseHelp" placeholder="Select Student Course" asp-for="StudentCourse">
+                </select>
+        </div>
+    
+        <div class="form-group col">
+            <label asp-for="GPA">GPA</label>
+            <input class="form-control" asp-for="GPA">
+        </div>
+    </div>
+    <br />
+    <button type="submit" class="btn btn-success">Save</button>
+    <button type="submit" class="btn btn-secondary" onclick="history.back()">Cancel</button>
+</form>

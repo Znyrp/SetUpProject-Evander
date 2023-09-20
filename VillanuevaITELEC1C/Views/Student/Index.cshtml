@@ -15,6 +15,7 @@
         <td><b>GPA</b></td>
         <td><b>Date Enrolled</b></td>
         <td><b>Details</b></td>
+        <td><b>Edit</b></td>
     </tr>
 
     @foreach (var Student in Model)
@@ -26,6 +27,7 @@
             <td>@Student.GPA</td>
             <td>@Student.DateEnrolled</td>
             <td><a class="btn btn-outline-success btn-sm d-flex justify-content-center" asp-action="ShowDetails" asp-route-Id="@Student.StudentId">Show Details</a></td>
+            <td><a class="btn btn-warning btn-sm d-flex justify-content-center" asp-action="UpdateStudent" asp-route-Id="@Student.StudentId">Update</a></td>
         </tr>
     }
 

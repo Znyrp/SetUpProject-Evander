@@ -74,5 +74,33 @@ namespace VillanuevaITELEC1C.Controllers
             Instructorlist.Add(newInstructor);
             return View("Index", Instructorlist);
         }
+
+        [HttpGet]
+        public IActionResult UpdateInstructor(int id)
+        {
+            //Search for the instructor whose id matches the given id
+            Instructor? instructor = Instructorlist.FirstOrDefault(ins => ins.Id == id);
+
+            if (instructor != null)//was an instructor found?
+                return View(instructor);
+
+            return NotFound();
+        }
+        [HttpPost]
+        public IActionResult UpdateInstructor(Instructor instructorChanges)
+        {
+            Instructor? instructor = Instructorlist.FirstOrDefault(ins => ins.Id == instructorChanges.Id);
+
+            if (instructor != null)
+            {
+                instructor.FirstName = instructorChanges.FirstName;
+                instructor.LastName = instructorChanges.LastName;
+                instructor.IsTenured = instructorChanges.IsTenured;
+                instructor.Rank = instructorChanges.Rank;
+                instructor.HiringDate = instructorChanges.HiringDate;
+            }
+            return View("Index", Instructorlist);
+        }
+
     }
 };

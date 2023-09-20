@@ -86,6 +86,33 @@ namespace VillanuevaITELEC1C.Controllers
             StudentList.Add(newStudent);
             return View("Index", StudentList);
         }
+        [HttpGet]
+        public IActionResult UpdateStudent(int id)
+        {
+            //Search for the instructor whose id matches the given id
+            Student? student = StudentList.FirstOrDefault(st => st.StudentId == id);
+
+            if (student != null)//was an instructor found?
+                return View(student);
+
+            return NotFound();
+        }
+        [HttpPost]
+        public IActionResult UpdateStudent(Student studentChanges)
+        {
+            Student? student = StudentList.FirstOrDefault(st => st.StudentId == studentChanges.StudentId);
+            
+            if (student != null)
+            {
+                student.StudentFirstName = studentChanges.StudentFirstName;
+                student.StudentLastName = studentChanges.StudentLastName;
+                student.Email = studentChanges.Email;
+                student.DateEnrolled = studentChanges.DateEnrolled;
+                student.GPA = studentChanges.GPA;
+                student.StudentCourse = studentChanges.StudentCourse;
+            }
+            return View("Index",StudentList);
+        }
     }
 };
 
