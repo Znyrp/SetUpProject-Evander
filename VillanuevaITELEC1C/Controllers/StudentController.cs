@@ -113,6 +113,29 @@ namespace VillanuevaITELEC1C.Controllers
             }
             return View("Index",StudentList);
         }
+        [HttpGet]
+        public IActionResult Delete(int id)
+        {
+            //Search for the instructor whose id matches the given id
+            Student? student = StudentList.FirstOrDefault(st => st.StudentId == id);
+
+            if (student != null)//was an instructor found?
+                return View(student);
+
+            return NotFound();
+        }
+
+        [HttpPost]
+        public IActionResult Delete(Student newStudent)
+
+        {
+            //Search for the instructor whose id matches the given id
+            Student? student = StudentList.FirstOrDefault(st => st.StudentId == newStudent.StudentId);
+
+            if (student != null)//was an instructor found?
+                StudentList.Remove(student);
+            return View("Index", StudentList);
+        }
     }
 };
 

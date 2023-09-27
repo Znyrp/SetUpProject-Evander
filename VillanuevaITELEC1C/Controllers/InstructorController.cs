@@ -102,5 +102,28 @@ namespace VillanuevaITELEC1C.Controllers
             return View("Index", Instructorlist);
         }
 
+        [HttpGet]
+        public IActionResult Delete(int id)
+        {
+            //Search for the instructor whose id matches the given id
+            Instructor? instructor = Instructorlist.FirstOrDefault(ins => ins.Id == id);
+
+            if (instructor != null)//was an instructor found?
+                return View(instructor);
+
+            return NotFound();
+        }
+
+        [HttpPost]
+        public IActionResult Delete(Instructor newInstructor)
+
+        {
+            //Search for the instructor whose id matches the given id
+            Instructor? instructor = Instructorlist.FirstOrDefault(ins => ins.Id == newInstructor.Id);
+
+            if (instructor != null)//was an instructor found?
+                Instructorlist.Remove(instructor);
+            return View("Index", Instructorlist);
+        }
     }
 };

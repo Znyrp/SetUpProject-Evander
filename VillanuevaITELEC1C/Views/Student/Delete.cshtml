@@ -4,8 +4,8 @@
 @{
 }
 @model Student;
-<h1 class="display-6">Update Student</h1>
-<form asp-action="UpdateStudent" asp-controller="Student" method="post">
+<h1 class="display-6">Are you sure you want to delete?</h1>
+<form asp-action="Delete" asp-controller="Student" method="post">
     <div class="row">
         <div class="form-group col">
             <label asp-for="StudentId" readonly>Student Id</label>
@@ -14,35 +14,35 @@
     
         <div class="form-group col">
             <label asp-for="StudentFirstName">First Name</label>
-            <input class="form-control" asp-for="StudentFirstName">
+            <input class="form-control" asp-for="StudentFirstName" readonly>
         </div>
     
         <div class="form-group col">
             <label asp-for="StudentLastName">Last Name</label>
-            <input class="form-control" asp-for="StudentLastName">
+            <input class="form-control" asp-for="StudentLastName" readonly>
         </div>
     </div>
         <div class="form-group">
             <label asp-for="Email">Email</label>
-            <input class="form-control" asp-for="Email">
+        <input class="form-control" asp-for="Email" readonly>
         </div>
     <div class="row">
         <div class="form-group col">
             <label asp-for="DateEnrolled">Date Enrolled</label>
-            <input class="form-control" asp-for="DateEnrolled">
+            <input class="form-control" asp-for="DateEnrolled" readonly>
         </div>
         <div class="form-group col">
             <label asp-for="StudentCourse">Student Course</label>
-                <select class="form-control form-select" asp-items="@Html.GetEnumSelectList(typeof(Course))" aria-describedby="CourseHelp" placeholder="Select Student Course" asp-for="StudentCourse">
+            <select class="form-control form-select" asp-items="@Html.GetEnumSelectList(typeof(Course))" aria-describedby="CourseHelp" placeholder="Select Student Course" asp-for="StudentCourse" readonly disabled>
                 </select>
         </div>
     
         <div class="form-group col">
             <label asp-for="GPA">GPA</label>
-            <input class="form-control" asp-for="GPA">
+            <input class="form-control" asp-for="GPA" readonly>
         </div>
     </div>
     <br />
-    <button type="submit" class="btn btn-success">Save</button>
+    <button type="submit" class="btn btn-danger">Delete</button>
     <button type="button" class="btn btn-secondary" onclick="history.back()">Cancel</button>
 </form>
