@@ -1,73 +1,28 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using VillanuevaITELEC1C.Models;
+using VillanuevaITELEC1C.Services;
 
 namespace VillanuevaITELEC1C.Controllers
 {
     public class StudentController : Controller
     {
-        List<Student> StudentList = new List<Student>()
-            {
-                new Student()
-                {
-                    StudentId = 1,
-                    StudentFirstName = "Evander Prynz",
-                    StudentLastName = "Villanueva",
-                    Email = "evanderprynz.villanueva.cics@ust.edu.ph",
-                    StudentCourse = Course.BSIT,
-                    GPA = 1.00,
-                    DateEnrolled = DateTime.Parse("02/01/2020"),
-                },
-                 new Student()
-                {
-                    StudentId = 2,
-                    StudentFirstName = "Jan Drefner",
-                    StudentLastName = "Santos",
-                    Email = "jandrefner.santos.cics@ust.edu.ph",
-                    StudentCourse = Course.BSIT,
-                    GPA = 1.25,
-                    DateEnrolled = DateTime.Parse("03/02/2020"),
-                },
-                  new Student()
-                {
-                    StudentId = 3,
-                    StudentFirstName = "Mark Clarence",
-                    StudentLastName = "Alicante",
-                    Email = "markclarence.alicante.cics@ust.edu.ph",
-                    StudentCourse = Course.BSCS,
-                    GPA = 1.50,
-                    DateEnrolled = DateTime.Parse("22/01/2020"),
-                },
-                   new Student()
-                {
-                    StudentId = 4,
-                    StudentFirstName = "Zyke",
-                    StudentLastName = "Victoria",
-                    Email = "zyke.victoria.cics@ust.edu.ph",
-                    StudentCourse = Course.BSIS,
-                    GPA = 1.25,
-                    DateEnrolled = DateTime.Parse("10/11/2020"),
-                },
-                    new Student()
-                {
-                    StudentId = 5,
-                    StudentFirstName = "Louis Ivan",
-                    StudentLastName = "Virgo",
-                    Email = "louisivan.virgo.cics@ust.edu.ph",
-                    StudentCourse = Course.BSIT,
-                    GPA = 1.75,
-                    DateEnrolled = DateTime.Parse("03/02/2020"),
-                },
-        };
+        private readonly IMyFakeDataService _dummyData;
+        public StudentController(IMyFakeDataService dummyData)
+        {
+            _dummyData = dummyData;
+        }
+
+       
     public IActionResult Index()
         {
 
-            return View(StudentList);
+            return View(_dummyData.StudentList);
         }
 
         public IActionResult ShowDetails(int id)
         {
             //Search for the instructor whose id matches the given id
-            Student? student = StudentList.FirstOrDefault(st => st.StudentId == id);
+            Student? student = _dummyData.StudentList.FirstOrDefault(st => st.StudentId == id);
 
             if (student != null)//was an instructor found?
                 return View(student);
@@ -83,14 +38,14 @@ namespace VillanuevaITELEC1C.Controllers
         [HttpPost]
         public IActionResult AddStudent(Student newStudent)
         {
-            StudentList.Add(newStudent);
-            return View("Index", StudentList);
+            _dummyData.StudentList.Add(newStudent);
+            return RedirectToAction("Index");
         }
         [HttpGet]
         public IActionResult UpdateStudent(int id)
         {
             //Search for the instructor whose id matches the given id
-            Student? student = StudentList.FirstOrDefault(st => st.StudentId == id);
+            Student? student = _dummyData.StudentList.FirstOrDefault(st => st.StudentId == id);
 
             if (student != null)//was an instructor found?
                 return View(student);
@@ -100,7 +55,7 @@ namespace VillanuevaITELEC1C.Controllers
         [HttpPost]
         public IActionResult UpdateStudent(Student studentChanges)
         {
-            Student? student = StudentList.FirstOrDefault(st => st.StudentId == studentChanges.StudentId);
+            Student? student = _dummyData.StudentList.FirstOrDefault(st => st.StudentId == studentChanges.StudentId);
             
             if (student != null)
             {
@@ -111,13 +66,13 @@ namespace VillanuevaITELEC1C.Controllers
                 student.GPA = studentChanges.GPA;
                 student.StudentCourse = studentChanges.StudentCourse;
             }
-            return View("Index",StudentList);
+            return RedirectToAction("Index");
         }
         [HttpGet]
         public IActionResult Delete(int id)
         {
             //Search for the instructor whose id matches the given id
-            Student? student = StudentList.FirstOrDefault(st => st.StudentId == id);
+            Student? student = _dummyData.StudentList.FirstOrDefault(st => st.StudentId == id);
 
             if (student != null)//was an instructor found?
                 return View(student);
@@ -130,11 +85,11 @@ namespace VillanuevaITELEC1C.Controllers
 
         {
             //Search for the instructor whose id matches the given id
-            Student? student = StudentList.FirstOrDefault(st => st.StudentId == newStudent.StudentId);
+            Student? student = _dummyData.StudentList.FirstOrDefault(st => st.StudentId == newStudent.StudentId);
 
             if (student != null)//was an instructor found?
-                StudentList.Remove(student);
-            return View("Index", StudentList);
+                _dummyData.StudentList.Remove(student);
+            return RedirectToAction("Index");
         }
     }
 };
