@@ -13,6 +13,7 @@
         <td><b>Email</b></td>
         <td><b>Course</b></td>
         <td><b>GPA</b></td>
+        <td><b>Telephone Number</b></td>
         <td><b>Date Enrolled</b></td>
         <td><b>Details</b></td>
         <td><b>Edit</b></td>
@@ -26,10 +27,11 @@
             <td>@Student.Email</td>
             <td>@Student.StudentCourse</td>
             <td>@Student.GPA</td>
+            <td>@Student.PhoneNumber</td>
             <td>@Student.DateEnrolled</td>
-            <td><a class="btn btn-outline-success btn-sm d-flex justify-content-center" asp-action="ShowDetails" asp-route-Id="@Student.StudentId">Show Details</a></td>
-            <td><a class="btn btn-warning btn-sm d-flex justify-content-center" asp-action="UpdateStudent" asp-route-Id="@Student.StudentId">Update</a></td>
-            <td><a class="btn btn-danger btn-sm d-flex justify-content-center" asp-action="Delete" asp-route-Id="@Student.StudentId">Delete</a></td>
+            <td><a class="btn btn-outline-success btn-sm d-flex justify-content-center" asp-action="ShowDetails" asp-route-Id="@Student.Id">Show Details</a></td>
+            <td><a class="btn btn-warning btn-sm d-flex justify-content-center" asp-action="UpdateStudent" asp-route-Id="@Student.Id">Update</a></td>
+            <td><a class="btn btn-danger btn-sm d-flex justify-content-center" asp-action="Delete" asp-route-Id="@Student.Id">Delete</a></td>
         </tr>
     }
 

@@ -1,28 +1,28 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using VillanuevaITELEC1C.Data;
 using VillanuevaITELEC1C.Models;
-using VillanuevaITELEC1C.Services;
 
 namespace VillanuevaITELEC1C.Controllers
 {
     public class StudentController : Controller
     {
-        private readonly IMyFakeDataService _dummyData;
-        public StudentController(IMyFakeDataService dummyData)
+        private readonly AppDbContext _dbData;
+        public StudentController(AppDbContext dbData)
         {
-            _dummyData = dummyData;
+            _dbData = dbData;
         }
 
        
     public IActionResult Index()
         {
 
-            return View(_dummyData.StudentList);
+            return View(_dbData.Students);
         }
 
         public IActionResult ShowDetails(int id)
         {
             //Search for the instructor whose id matches the given id
-            Student? student = _dummyData.StudentList.FirstOrDefault(st => st.StudentId == id);
+            Student? student = _dbData.Students.FirstOrDefault(st => st.Id == id);
 
             if (student != null)//was an instructor found?
                 return View(student);
@@ -38,14 +38,18 @@ namespace VillanuevaITELEC1C.Controllers
         [HttpPost]
         public IActionResult AddStudent(Student newStudent)
         {
-            _dummyData.StudentList.Add(newStudent);
+            if (!ModelState.IsValid)
+                return View();
+
+            _dbData.Students.Add(newStudent);
+            _dbData.SaveChanges();
             return RedirectToAction("Index");
         }
         [HttpGet]
         public IActionResult UpdateStudent(int id)
         {
             //Search for the instructor whose id matches the given id
-            Student? student = _dummyData.StudentList.FirstOrDefault(st => st.StudentId == id);
+            Student? student = _dbData.Students.FirstOrDefault(st => st.Id == id);
 
             if (student != null)//was an instructor found?
                 return View(student);
@@ -55,8 +59,8 @@ namespace VillanuevaITELEC1C.Controllers
         [HttpPost]
         public IActionResult UpdateStudent(Student studentChanges)
         {
-            Student? student = _dummyData.StudentList.FirstOrDefault(st => st.StudentId == studentChanges.StudentId);
-            
+            Student? student = _dbData.Students.FirstOrDefault(st => st.Id == studentChanges.Id);
+
             if (student != null)
             {
                 student.StudentFirstName = studentChanges.StudentFirstName;
@@ -65,14 +69,20 @@ namespace VillanuevaITELEC1C.Controllers
                 student.DateEnrolled = studentChanges.DateEnrolled;
                 student.GPA = studentChanges.GPA;
                 student.StudentCourse = studentChanges.StudentCourse;
+                student.PhoneNumber = studentChanges.PhoneNumber;
+
+                _dbData.SaveChanges(); // Save changes after making all the necessary updates
             }
+
             return RedirectToAction("Index");
         }
+
+
         [HttpGet]
         public IActionResult Delete(int id)
         {
             //Search for the instructor whose id matches the given id
-            Student? student = _dummyData.StudentList.FirstOrDefault(st => st.StudentId == id);
+            Student? student = _dbData.Students.FirstOrDefault(st => st.Id == id);
 
             if (student != null)//was an instructor found?
                 return View(student);
@@ -85,10 +95,11 @@ namespace VillanuevaITELEC1C.Controllers
 
         {
             //Search for the instructor whose id matches the given id
-            Student? student = _dummyData.StudentList.FirstOrDefault(st => st.StudentId == newStudent.StudentId);
+            Student? student = _dbData.Students.FirstOrDefault(st => st.Id == newStudent.Id);
 
             if (student != null)//was an instructor found?
-                _dummyData.StudentList.Remove(student);
+                _dbData.Students.Remove(student);
+            _dbData.SaveChanges();
             return RedirectToAction("Index");
         }
     }

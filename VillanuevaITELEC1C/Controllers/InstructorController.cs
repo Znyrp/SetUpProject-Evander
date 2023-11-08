@@ -1,27 +1,27 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using VillanuevaITELEC1C.Data;
 using VillanuevaITELEC1C.Models;
-using VillanuevaITELEC1C.Services;
 
 namespace VillanuevaITELEC1C.Controllers
 {
 
     public class InstructorController : Controller
     {
-        private readonly IMyFakeDataService _dummyData;
-        public InstructorController(IMyFakeDataService dummyData)
+        private readonly AppDbContext _dbData;
+        public InstructorController(AppDbContext dbData)
         {
-            _dummyData = dummyData;
+            _dbData = dbData;
         }
     public IActionResult Index()
         {
             
-            return View(_dummyData.InstructorList);
+            return View(_dbData.Instructors);
         }
 
         public IActionResult ShowDetails(int id)
         {
             //Search for the student whose id matches the given id
-            Instructor? instructor = _dummyData.InstructorList.FirstOrDefault(ins => ins.Id == id);
+            Instructor? instructor = _dbData.Instructors.FirstOrDefault(ins => ins.Id == id);
 
             if (instructor != null)//was an instructor found?
                 return View(instructor);
@@ -30,13 +30,16 @@ namespace VillanuevaITELEC1C.Controllers
         }
         public IActionResult AddInstructor()
         {
-
             return View();
         }
         [HttpPost]
         public IActionResult AddInstructor(Instructor newInstructor)
         {
-            _dummyData.InstructorList.Add(newInstructor);
+            if (!ModelState.IsValid)
+                return View();
+
+            _dbData.Instructors.Add(newInstructor);
+            _dbData.SaveChanges();
             return RedirectToAction("Index");
         }
 
@@ -44,7 +47,7 @@ namespace VillanuevaITELEC1C.Controllers
         public IActionResult UpdateInstructor(int id)
         {
             //Search for the instructor whose id matches the given id
-            Instructor? instructor = _dummyData.InstructorList.FirstOrDefault(ins => ins.Id == id);
+            Instructor? instructor = _dbData.Instructors.FirstOrDefault(ins => ins.Id == id);
 
             if (instructor != null)//was an instructor found?
                 return View(instructor);
@@ -54,7 +57,7 @@ namespace VillanuevaITELEC1C.Controllers
         [HttpPost]
         public IActionResult UpdateInstructor(Instructor instructorChanges)
         {
-            Instructor? instructor = _dummyData.InstructorList.FirstOrDefault(ins => ins.Id == instructorChanges.Id);
+            Instructor? instructor = _dbData.Instructors.FirstOrDefault(ins => ins.Id == instructorChanges.Id);
 
             if (instructor != null)
             {
@@ -63,6 +66,8 @@ namespace VillanuevaITELEC1C.Controllers
                 instructor.IsTenured = instructorChanges.IsTenured;
                 instructor.Rank = instructorChanges.Rank;
                 instructor.HiringDate = instructorChanges.HiringDate;
+                instructor.OfficePhone = instructorChanges.OfficePhone;
+                _dbData.SaveChanges();
             }
             return RedirectToAction("Index");
         }
@@ -71,7 +76,7 @@ namespace VillanuevaITELEC1C.Controllers
         public IActionResult Delete(int id)
         {
             //Search for the instructor whose id matches the given id
-            Instructor? instructor = _dummyData.InstructorList.FirstOrDefault(ins => ins.Id == id);
+            Instructor? instructor = _dbData.Instructors.FirstOrDefault(ins => ins.Id == id);
 
             if (instructor != null)//was an instructor found?
                 return View(instructor);
@@ -84,10 +89,11 @@ namespace VillanuevaITELEC1C.Controllers
 
         {
             //Search for the instructor whose id matches the given id
-            Instructor? instructor = _dummyData.InstructorList.FirstOrDefault(ins => ins.Id == newInstructor.Id);
+            Instructor? instructor = _dbData.Instructors.FirstOrDefault(ins => ins.Id == newInstructor.Id);
 
             if (instructor != null)//was an instructor found?
-                _dummyData.InstructorList.Remove(instructor);
+                _dbData.Instructors.Remove(instructor);
+            _dbData.SaveChanges();
             return RedirectToAction("Index");
         }
     }

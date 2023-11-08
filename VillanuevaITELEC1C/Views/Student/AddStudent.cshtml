@@ -5,43 +5,45 @@
 }
 @model Student;
 <h1 class="display-6">Create A New Student</h1>
+<div asp-validation-summary="All" class="text-danger"></div>
 <form asp-action="AddStudent" asp-controller="Student" method="post">
     <div class="row">
         <div class="form-group col">
-            <label asp-for="StudentId">Student Id</label>
-            <input class="form-control" asp-for="StudentId">
-        </div>
-    
-        <div class="form-group col">
-            <label asp-for="StudentFirstName">First Name</label>
+            <label asp-for="StudentFirstName"></label>
             <input class="form-control" asp-for="StudentFirstName">
         </div>
     
         <div class="form-group col">
-            <label asp-for="StudentLastName">Last Name</label>
+            <label asp-for="StudentLastName"></label>
             <input class="form-control" asp-for="StudentLastName">
         </div>
     </div>
         <div class="form-group">
-            <label asp-for="Email">Email</label>
+            <label asp-for="Email"></label>
             <input class="form-control" asp-for="Email">
         </div>
     <div class="row">
         <div class="form-group col">
-            <label asp-for="DateEnrolled">Date Enrolled</label>
+            <label asp-for="DateEnrolled"></label>
             <input class="form-control" asp-for="DateEnrolled">
         </div>
         <div class="form-group col">
-            <label asp-for="StudentCourse">Student Course</label>
+            <label asp-for="StudentCourse"></label>
                 <select class="form-control form-select" asp-items="@Html.GetEnumSelectList(typeof(Course))" aria-describedby="CourseHelp" placeholder="Select Student Course" asp-for="StudentCourse">
                 </select>
         </div>
     
         <div class="form-group col">
-            <label asp-for="GPA">GPA</label>
+            <label asp-for="GPA"></label>
             <input class="form-control" asp-for="GPA">
+        </div>
+
+        <div class="form-group col">
+            <label asp-for="PhoneNumber"></label>
+            <input class="form-control" asp-for="PhoneNumber">
         </div>
     </div>
     <br />
     <button type="submit" class="btn btn-success">Submit</button>
+    <button type="button" class="btn btn-secondary" onclick="history.back()">Cancel</button>
 </form>
