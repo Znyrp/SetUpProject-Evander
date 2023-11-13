@@ -16,7 +16,7 @@ namespace VillanuevaITELEC1C.Models
         public string? FirstName { get; set;}
         [Display(Name = "Last Name")]
         [Required(ErrorMessage = "Please enter your Last Name")]
-        public string LastName { get; set;}
+        public string? LastName { get; set;}
         [Display(Name = "Is Tenured")]
         public bool IsTenured { get; set; }
         [Display(Name = "Rank")]

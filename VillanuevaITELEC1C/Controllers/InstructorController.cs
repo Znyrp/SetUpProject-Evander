@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using VillanuevaITELEC1C.Data;
 using VillanuevaITELEC1C.Models;
 
@@ -12,6 +13,8 @@ namespace VillanuevaITELEC1C.Controllers
         {
             _dbData = dbData;
         }
+
+        [Authorize]
     public IActionResult Index()
         {
             
@@ -32,7 +35,6 @@ namespace VillanuevaITELEC1C.Controllers
         {
             return View();
         }
-        [HttpPost]
         public IActionResult AddInstructor(Instructor newInstructor)
         {
             if (!ModelState.IsValid)

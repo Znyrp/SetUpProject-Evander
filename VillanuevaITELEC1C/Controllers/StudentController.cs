@@ -29,6 +29,7 @@ namespace VillanuevaITELEC1C.Controllers
 
             return NotFound();
         }
+
         [HttpGet]
         public IActionResult AddStudent()
         {
