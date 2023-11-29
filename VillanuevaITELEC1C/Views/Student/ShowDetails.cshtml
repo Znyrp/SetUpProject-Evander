@@ -8,6 +8,11 @@
 
 <h4 class="display-6">Student Details</h4>
 
+@if(ViewBag.StudentProfilePhoto != null)
+{
+    <img src="@ViewBag.StudentProfilePhoto" width="20%" height="20%" class="img-thumbnail"/>
+}
+
 <table class="table table-bordered border-dark">
     <tr>
         <th class="table-success table-bordered border-dark">Id</th>

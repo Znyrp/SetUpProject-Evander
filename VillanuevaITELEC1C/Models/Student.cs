@@ -39,5 +39,8 @@ namespace VillanuevaITELEC1C.Models
         [Display(Name = "Telephone Number")]
         [RegularExpression("[0-9]{3}-[0-9]{3}-[0-9]{4}", ErrorMessage = "you must follow the format 000-000-0000! for the Telephone Number")]
         public string? PhoneNumber { get; set; }
+
+        [Display(Name = "Profile Picture")]
+        public byte[]? StudentProfilePhoto { get; set; }
     }
 }

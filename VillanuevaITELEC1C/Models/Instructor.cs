@@ -31,5 +31,7 @@ namespace VillanuevaITELEC1C.Models
         [Display(Name = "Office Phone Number")]
         [RegularExpression("[0-9]{3}-[0-9]{3}-[0-9]{4}", ErrorMessage = "you must follow the format 000-000-0000! for the Office Phone Number")]
         public string? OfficePhone { get; set; }
+
+        
     }
 }

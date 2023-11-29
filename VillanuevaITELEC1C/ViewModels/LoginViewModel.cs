@@ -4,7 +4,7 @@ namespace VillanuevaITELEC1C.ViewModels
 {
     public class LoginViewModel
     {
-        [Display(Name = "User Name")]
+        [Display(Name = "Username")]
         [Required(ErrorMessage = " a username is required")]
         public string? UserName { get; set; }
 

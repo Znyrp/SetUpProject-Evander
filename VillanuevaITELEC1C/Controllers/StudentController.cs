@@ -24,8 +24,19 @@ namespace VillanuevaITELEC1C.Controllers
             //Search for the instructor whose id matches the given id
             Student? student = _dbData.Students.FirstOrDefault(st => st.Id == id);
 
-            if (student != null)//was an instructor found?
+            if (student != null)
+            {
+                if(student.StudentProfilePhoto != null)
+                {
+                    string imageBase64Data = Convert.ToBase64String(student.StudentProfilePhoto);
+                    string imageDataURL = string.Format("data:image/jpg;base64,{0}", imageBase64Data);
+                    ViewBag.StudentProfilePhoto = imageDataURL;
+                }
+                
                 return View(student);
+
+                
+            }//was a student found?
 
             return NotFound();
         }
@@ -40,7 +51,19 @@ namespace VillanuevaITELEC1C.Controllers
         public IActionResult AddStudent(Student newStudent)
         {
             if (!ModelState.IsValid)
-                return View();
+            return View();
+
+            if (Request.Form.Files.Count > 0) // did a user upload a file?
+            {
+                var file = Request.Form.Files[0];
+
+                MemoryStream ms = new MemoryStream();
+                file.CopyTo(ms); //copy the file into a memory stream object
+                newStudent.StudentProfilePhoto = ms.ToArray(); // save bytes into newStudent
+                ms.Close();
+                ms.Dispose();
+            }
+
 
             _dbData.Students.Add(newStudent);
             _dbData.SaveChanges();

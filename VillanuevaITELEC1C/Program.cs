@@ -6,12 +6,12 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-
+//builder.Services.AddSingleton<IMyFakeDataService, MyFakeDataService>();
 
 //DbContext
 builder.Services.AddDbContext<AppDbContext>(
-        options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
-);
+   options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
+    );
 
 builder.Services.AddIdentity<User, IdentityRole>(options =>
 {
@@ -24,9 +24,6 @@ builder.Services.AddIdentity<User, IdentityRole>(options =>
     options.User.RequireUniqueEmail = true;
 }).AddEntityFrameworkStores<AppDbContext>();
 
-//builder.Services.AddSingleton<IStudentDummy, StudentDummy>();
-
-//builder.Services.AddSingleton<IInstructorDummy, InstructorDummy>();
 
 var app = builder.Build();
 
@@ -35,9 +32,6 @@ if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
 }
-
-
-
 app.UseStaticFiles();
 
 app.UseAuthentication();
@@ -46,6 +40,7 @@ var context = app.Services.CreateScope().ServiceProvider.GetRequiredService<AppD
 context.Database.EnsureCreated();
 //context.Database.EnsureDeleted();
 
+
 app.UseRouting();
 
 app.UseAuthorization();
@@ -53,5 +48,6 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
 
 app.Run();

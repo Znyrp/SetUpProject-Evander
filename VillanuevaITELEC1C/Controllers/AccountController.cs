@@ -32,7 +32,7 @@ namespace VillanuevaITELEC1C.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Failed to Login");
+                ModelState.AddModelError("", "User Credentials Do Not Match");
                 }
                 return View(loginInfo);
         }

@@ -4,7 +4,7 @@ namespace VillanuevaITELEC1C.ViewModels
 {
     public class RegisterViewModel
     {
-        [Display(Name = "User Name")]
+        [Display(Name = "Username")]
         [Required(ErrorMessage = "Please Enter User Name")]
         public string? Username { get; set; }
         [Display(Name = "Password")]

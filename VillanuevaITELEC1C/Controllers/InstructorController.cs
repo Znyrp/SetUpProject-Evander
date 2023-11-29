@@ -31,10 +31,13 @@ namespace VillanuevaITELEC1C.Controllers
 
             return NotFound();
         }
+        [HttpGet]
         public IActionResult AddInstructor()
         {
             return View();
         }
+
+        [HttpPost]
         public IActionResult AddInstructor(Instructor newInstructor)
         {
             if (!ModelState.IsValid)
